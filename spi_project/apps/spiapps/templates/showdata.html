@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>SAGE-POPOVICH INC.</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+      {% load static %}
+          <link rel="stylesheet" href="{% static 'style.css' %}" media="screen" title="no title" charset="utf-8">
+          <style>
+                    #myBtn {
+              display: none;
+              position: fixed;
+              bottom: 20px;
+              right: 30px;
+              z-index: 99;
+              font-size: 18px;
+              border: none;
+              outline: none;
+              background-color: orange;
+              color: white;
+              cursor: pointer;
+              padding: 15px;
+              border-radius: 4px;
+            }
+
+            #myBtn:hover {
+              background-color: #555;
+            }
+          .display{
+            margin-left:30px;
+          }
+          th, .displayHeader{
+            /* display: inline-block; */
+            width: 100px;
+            height: 50px;
+            padding:20px;
+            margin-left: 10px;
+            margin:auto;
+            background-color: gray;
+            color: white;
+            text-align: left;
+            /* border-bottom: 1px solid #ddd; */
+          }
+          tr.displayBody{
+            /* border-bottom: 1px solid #ddd; */
+            /* display: inline-block; */
+            width: 100px;
+            padding:20px;
+            margin-left: 10px;
+            margin:auto;
+            background-color: lightgray;
+            text-align: left;
+          }
+          tr:nth-child(even) {background-color: #f2f2f2;}
+                    a:link {
+                    color: rgb(39, 31, 143);
+                    text-decoration: none;
+                  }
+
+                  /* visited link */
+                  a:visited {
+                    color: rgb(39, 31, 143);
+                    text-decoration: none;
+                  }
+
+                  /* mouse over link */
+                  a:hover {
+                    color: orange;
+                    text-decoration: none;
+                  }
+
+                  /* selected link */
+                  a:active {
+                    color: rgb(39, 31, 143);
+                    text-decoration: none;
+                  }
+          </style>
+  </head> 
+  <body>
+    <div class="container,topNav, fixed-top" >
+      <nav class="navbar navbar-default .navbar-fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">{% load static %} <img src="{% static 'images/logo.png' %}" /></a>
+          </div>
+          <ul class="nav nav-tabs">
+            <li class="nav-item"><a href="/">Home</a></li>
+            <li class="nav-item"><a href="/summ">Summary</a></li>
+            <li class="nav-item"><a href="/inputData">Enter Data</a></li>
+                <!-- Dropdown -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">LookUp Parts</a>
+
+                    
+                
+                <div class="dropdown-menu">
+                <a class="dropdown-item" href="/pn">PN</a><div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/desc">Description</a><div class="dropdown-divider"></div>
+                <a class="dropdown-item active" href="/bulk">Lookup Excel Data</a><div class="dropdown-divider"></div>
+                </div>
+            </li>
+            
+          </ul>
+        </div>
+      </nav>
+        
+    </div>
+    <div class="spiHeader"><h1 style="text-align: center;">Record Summary</h1>
+    <a href='{{FileName}}.xlsx' download>Download Excel File </a>
+    </div>
+    <hr />
+     <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+
+    <div class="display">
+      <table>
+            <tr class="displayHeader">
+      <th>Source </th> <th>Date</th><th> PN</th>
+      <th>Condition</th><th>Part Type</th>
+      <th>Description</th>
+      <th>ATA</th>
+      <th>Cost</th>
+      <th>Fleet</th>
+      <th>Effectivity</th>
+      <th>Serialized</th>
+      <th>LLP</th>
+      <th>UOM</th><th>&nbsp; &nbsp; &nbsp;</th><th>&nbsp; &nbsp; &nbsp;</th>
+      </tr>
+      {% for row in Part %}
+      <tr class="displayBody">
+        {% comment %} {% for cell in row %} {% endcomment %}
+        <td>{{row.source}} </td> <td>{{row.date}}</td> <td> {{row.PN}}</td>
+       <td>{{row.cond}}</td><td>{{row.part_type}}</td><td>{{row.Description}}</td><td>{{row.ata}}</td><td> {{row.cost}}</td><td>{{row.fleet}}</TD><td>{{row.Effectivity}}</td><td>{{row.Serialized}}</td><td> {{row.LLP}}</td><td>{{row.uom}} </td>
+        {% comment %} {% endfor %} {% endcomment %}
+      <!-- <br> -->
+      <td>
+        <a href="{{row.PN}}/edit" >Edit</a></td><td>
+        <a href="{{row.PN}}/delete">Delete</a>  
+      </td>
+      </tr>
+        
+      {% endfor %}
+    
+      {% if messages %}
+      <tr >
+      {% comment %} <ul class="messages">
+        {% for message in messages%} {% endcomment %}
+        <td colspan=13>
+        <h2{%if messages.tags %} style="text-align:center;" class="{{ messages.tags }}" {% endif %}>{{ messages }}</h2></td>
+        {% comment %} {% endfor %}
+      </ul> {% endcomment %} </tr>
+    {% endif %} 
+
+     
+
+
+      </table>
+    </div>
+
+    {% comment %} <a href="/inputData"style="text-align:center;margin-top: 100px;">Enter Another Part</a>  {% endcomment %}
+ 
+<script>
+//Get the button
+var mybutton = document.getElementById("myBtn");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+</script> 
+  </body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>SAGE-POPOVICH INC.</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+
+    {% load static %}
+    <script>
+ function toggle(source) {
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i] != source)
+            checkboxes[i].checked = source.checked;
+    }
+}
+
+       {% comment %}  var select_all = document.getElementById("select_all"); //select all checkbox
+        var checkboxes = document.getElementsByClassName("checkbox"); //checkbox items
+
+        //select all checkboxes
+        select_all.addEventListener("change", function(e){
+          for (i = 0; i < checkboxes.length; i++) { 
+            checkboxes[i].checked = select_all.checked;
+          }});
+
+
+          for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].addEventListener('change', function(e){ //".checkbox" change 
+              //uncheck "select all", if one of the listed checkbox item is unchecked
+              if(this.checked == false){
+                select_all.checked = false;
+              }
+              //check "select all" if all checkbox items are checked
+              if(document.querySelectorAll('.checkbox:checked').length == checkboxes.length){
+                select_all.checked = true;
+              }
+            });
+          } {% endcomment %}
+      </script>
+    <link rel="stylesheet" href="{% static 'style.css' %}" media="screen" title="no title" charset="utf-8">
+</head> 
+
+  <body>
+    <div class="container,topNav, fixed-top" >
+      <nav class="navbar navbar-default .navbar-fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">{% load static %}<img src="{% static 'images//logo.png' %}" /></a>
+          </div>
+          <ul class="nav nav-tabs">
+            <li class="nav-item"><a href="/">Home</a></li>
+            <li class="nav-item active"><a href="/summ">Summary</a></li>
+            <li class="nav-item"><a href="/inputData">Enter Data</a></li>
+            
+                <!-- Dropdown -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">LookUp Parts</a>                            
+                <div class="dropdown-menu">
+                <a class="dropdown-item" href="/pn">PN</a><div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/desc">Description</a><div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/bulk">Lookup Excel Data</a><div class="dropdown-divider"></div>
+                </div>
+            </li>
+            
+          </ul>
+        </div>
+      </nav>
+        
+    </div>
+
+    <div class="spiHeader"><h1 style="text-align: center">Summary Page</h1></div>
+    <hr />
+
+    <form action='/all_data' method='POST'>
+      {% csrf_token %}
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4">
+            <label for='partnumber'>Enter PN</label><br>
+            <textarea name="partnumber" rows="5" cols="30" aria-valuetext="Seperate multiple PN by comma"></textarea>
+          </div>
+          <div class="col-sm-4">
+            <div class="row">
+              <div class="col">
+                <!--<label for='timerange'>Time Range</label><br> -->
+                <legend>Time Range </legend>
+                <select id="timerange" name="timerange" width='50px'>
+                  <option value="y1">1 Year</option>
+                  <option value="y2">2 Years</option>
+                  <option value="y3">3 Years</option>
+                  <option value="y4">4 Years</option>
+                  <option value="y5">5 Years</option>
+                </select><br><br><br>
+              </div></div>
+              <div class="row">
+                <div class="col">
+                  <fieldset class="field_set">
+                  <legend>Include Sources</legend>
+                  <table class="mylist">
+                    {% comment %} <tr style="background-color:rgb(211, 209, 209);" ><th>
+                      <input class="checkbox" type="checkbox"  id="select_all" onclick="toggle(this);" /></th> <th ><Lable for="select_all">Include All</Lable></th>
+                  </tr> {% endcomment %}
+                  <tr>
+                    <td> <input class="checkbox" type="checkbox" id ="avref" name="check" value="avref" /></td><td ><Lable for="avref">AVREF</Lable></td>
+                  </tr>
+                  <tr>
+                  <tr>
+                    <td> <input class="checkbox" type="checkbox" id ="list" name="check" value="list" /></td><td ><Lable for="list">List</Lable></td>
+                  </tr>
+                  <tr>
+                    <td ><input class="checkbox" type="checkbox" id ="Airlines"  name="check" value="Airlines" /></td><td><Lable for="Airlines">Airlines</Lable></td>
+                  </tr>
+                  <tr>
+                    <td ><input class="checkbox" type="checkbox" id ="ils"  name="check" value="ils" /></td><td ><Lable for="ils">ILS</Lable></td>
+                  </tr>
+                  <tr>
+                    <td ><input class="checkbox" type="checkbox" id ="afhs"  name="check" value="afhs" /></td><td><Lable for="afhs">AFHS</Lable></td>
+                  </tr>
+                  </table></fieldset>
+                </div>
+              </div>
+
+              
+
+          </div>
+          <div class="col-sm-4">
+            <fieldset class="field_set">
+              <legend>Output:</legend>
+              <input type="radio" id="excel" name="output" value="excel"  checked>
+                <label for="excel">Save As Excel File</label>
+              <br>
+              <lable for="FileName">File Name: </Lable>
+              <input type="text" id='fileName' name='fileName' value='' />.xlsx
+              {% comment %} <input type="radio" id="pdf" name="output" value="pdf">
+              <label for="excel">Save As PDF File</label>
+              <br>
+              <input type="radio" id="printer" name="output" value="printer">
+              <label for="excel">Send to Printer</label> {% endcomment %}
+              <br><br>
+              
+            <!-- insert buttong to send output to external dest-->
+              
+            </fieldset>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <input type="submit" id="submit" name="submit" value="Search">
+            <input type="reset" id="reset" name="reset" value="Clear">
+          </div>
+        </div>
+      </div>
+    </form>
+    <h4 style='margin-left:170px; margin-top:70px'>You can enter one PN or many PN's seperated by a '#' </h4>
+  </body>
+</html>

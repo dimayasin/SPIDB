@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>SAGE-POPOVICH INC.</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    {% load static %}
+        <link rel="stylesheet" href="{% static 'style.css' %}" media="screen" title="no title" charset="utf-8">
+</head> 
+
+    <body>
+        <body>
+            <div class="container,topNav, fixed-top" >
+                <nav class="navbar navbar-default .navbar-fixed-top">
+                    <div class="container-fluid">
+                      <div class="navbar-header">
+                        <a class="navbar-brand" href="#"><img src="{% static 'images/logo.png' %}" /></a>
+                      </div>
+                      <ul class="nav nav-tabs">
+                        <li class="nav-item active"><a href="/">Home</a></li>
+                        <li class="nav-item"><a href="/summ">Summary</a></li>
+                        <li class="nav-item"><a href="/inputData">Enter Data</a></li>
+                       
+                            <!-- Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">LookUp Parts</a>
+        
+                                
+                            
+                            <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">PN</a><div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Description</a><div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Lookup Excel Data</a><div class="dropdown-divider"></div>
+                            </div>
+                        </li>
+                        
+                      </ul>
+                    </div>
+                  </nav>
+            
+        </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link active" href="#">PN</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Description</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Bulk PN LookUp</a>
+                </li>
+              </ul>
+        </div>
+        <div class="col-sm-9"><h3>Brows</h3></div>
+      </div>
+    
+    </body>
+</html>

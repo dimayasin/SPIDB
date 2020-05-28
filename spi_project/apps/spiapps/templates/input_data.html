@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>SAGE-POPOVICH INC.</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script>
+      $('#datepicker').datepicker().datepicker('setDate', 'today');
+    </script>
+
+      {% load static %}
+          <link rel="stylesheet" href="{% static 'style.css' %}" media="screen" title="no title" charset="utf-8">
+  </head> 
+
+  <body>
+    <div class="container,topNav, fixed-top" >
+      <nav class="navbar navbar-default .navbar-fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+              <a class="navbar-brand" href="#">{% load static %}<img src="{% static 'images//logo.png' %}" /></a>
+          </div>
+            <ul class="nav nav-tabs">
+              <li class="nav-item"><a href="/">Home</a></li>
+              <li class="nav-item"><a href="/summ">Summary</a></li>
+              <li class="nav-item active"><a href="/inputData">Enter Data</a></li>
+              
+                  <!-- Dropdown -->
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">LookUp Parts</a>
+
+                      
+                  
+                  <div class="dropdown-menu">
+                  <a class="dropdown-item" href="/pn">PN</a><div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="/desc">Description</a><div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="/bulk">Lookup Excel Data</a><div class="dropdown-divider"></div>
+                  </div>
+              </li>
+              
+            </ul>
+        </div>
+      </nav>
+      
+    </div>
+
+    <h1 style="margin-left:100px;">Manually Enter Part Information</h1>
+    <hr />
+    <div class="formbox">
+      <div class="row">
+        <div class="col-sm-7">
+          <form action="/NewPart" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <table class="data_entry">
+                <tr>
+                  <td style="width:40%"><label>Source: </label></td>
+                  <td>
+                    <select id="part_source" name="part_source" style="max-width:100%">
+                      <option value="select">Select</option>
+                      <option value="ILS">ILS</option>
+                      <option value="Airlines">Airlines</option>
+                      <option value="List">List</option>
+                      <option value="AFHS">AFHS</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width:40%;"><label>Date: </label></td>
+                  <td>
+                    <input type="date" id="datepicker" name="part_date" width="50" />
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width:40%;"><label>PN: </label></td>
+                  <td>
+                    <input type="text" name="part_pn" width="30" />
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width:40%;"><label>COND: </label></td>
+                  <td>
+                    <select id="part_cond" name="part_cond" style="max-width:100%">
+                      <option value="">Select</option>
+                      <option value="new">New</option>
+                      <option value="oh">OH</option>
+                      <option value="sv">SV</option>
+                      <option value="ar">AR</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width:40%;"><label>Desc: </label></td>
+                  <td>
+                    <textarea name="part_desc" rows="2" cols="22">
+                    </textarea>
+                  </td>
+                </tr>
+                <tr>
+                <tr>
+
+                  <td style="width:40%;"><label>Part Type: </label></td>
+                  <td>
+                    <input type="text" name="part_type" width="30" />
+                  </td>
+                </tr>
+
+                  <td style="width:40%;"><label>Effectivity: </label></td>
+                  <td>
+                    <input type="text" name="part_eff" width="30" />
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width:40%;"><label>ATA: </label></td>
+                  <td>
+                    <input type="text" name="part_ata" width="30" />
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width:40%;"><label>Prices: </label></td>
+                  <td>
+                    <input type="text" name="part_price" width="30" />
+                  </td>
+                </tr>
+                <tr>
+                  <td style="widt:40%;"><label>Serialized: </label></td>
+                  <td>
+                    <select id="part_serial" name="part_serial" style="max-width:100%">
+                      <option value="">Select</option>
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width:40%;"><label>LLP: </label></td>
+                  <td>
+                    {% comment %} <input type="text" name="part_llp" width="30" /> {% endcomment %}
+                     <select id="part_llp" name="part_llp" style="max-width:100%">
+                      <option value="">Select</option>
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width:40%;"><label>Fleet: </label></td>
+                  <td>
+                    <select id="part_fleet" name="part_fleet" style="max-width:100%">
+                      <option value="">Select</option>
+                      <option value="Unknown">Unknown</option>
+                      <option value="A300">A300</option>
+                      <option value="A310">A310</option>
+                      <option value="A318">A318</option>
+                      <option value="A319">A319</option>
+                      <option value="A320">A320</option>
+                      <option value="A320CEO">A320CEO</option>
+                      <option value="A320NEO">A320NEO</option>
+                      <option value="A321">A321</option>
+                      <option value="A330">A330</option>
+                      <option value="A340">A340</option>
+                      <option value="A350">A350</option>
+                      <option value="AG 109E">AG 109E</option>
+                      <option value="AIRBUS">AIRBUS</option>
+                      <option value="AN148">AN148</option>
+
+                      <option value="APS2000">APS2000</option>
+                      <option value="ATR42">ATR42</option>
+                      <option value="ATR72">ATR72</option>
+                      <option value="B707">B707</option>
+                      <option value="B717">B717</option>
+                      <option value="B727">B727</option>
+                      <option value="B737">B737</option>
+                      <option value="B737CL">B737CL</option>
+                      <option value="B737MAX">B737MAX</option>
+                      <option value="B737NG">B737NG</option>
+                      <option value="B737-NG">B737-NG</option>
+                      <option value="B747">B747</option>
+                      <option value="B747-400">B747-400</option>
+                      <option value="B747-800">B747-800</option>
+
+                      <option value="B747CL">B747CL</option>
+                      <option value="B757">B757</option>
+                      <option value="B767">B767</option>
+                      <option value="B777">B777</option>
+                      <option value="B787">B787</option>
+                      <option value="BAC111">BAC111</option>
+                      <option value="BAC1-11">BAC1-11</option>
+                      <option value="BAe146">BAe146</option>
+                      <option value="BOE/AIRBUS">BOE/AIRBUS</option>
+                      <option value="BOEING">BOEING</option>
+                      <option value="BOEING VAR">BOEING VAR</option>
+                      <option value="C130">C130</option>
+                      <option value="CESSNA">CESSNA</option>
+                      <option value="CF34">CF34</option>
+
+                      <option value="CF34-10">CF34-10</option>
+                      <option value="CF6">CF6</option>
+                      <option value="CF6-50">CF6-50</option>
+                      <option value="CF6-80A">CF6-80A</option>
+                      <option value="CF6-80C2">CF6-80C2</option>
+                      <option value="CFM56">CFM56</option>
+                      <option value="CFM56-2A">CFM56-2A</option>
+                      <option value="CFM56-3">CFM56-3</option>
+                      <option value="CFM56-3B">CFM56-3B</option>
+                      <option value="CFM56-3B2">CFM56-3B2</option>
+                      <option value="CFM56-3C">CFM56-3C</option>
+                      <option value="CFM56-5">CFM56-5</option>
+                      <option value="CFM56-5A">CFM56-5A</option>
+                      <option value="CFM56-5A1">CFM56-5A1</option>
+                      
+                      <option value="CFM56-5B">CFM56-5B</option>
+                      <option value="CFM56-5C">CFM56-5C</option>
+                      <option value="CFM56-5C4">CFM56-5C4</option>
+                      <option value="CFM56-7B">CFM56-7B</option>
+                      <option value="CHALLENGER">CHALLENGER</option>
+                      <option value="CHANGE">CHANGE</option>
+                      <option value="CIVI">CIVI</option>
+                      <option value="CIVIL VAR">CIVIL VAR</option>
+                      <option value="DC10">DC10</option>
+                      <option value="DC8">DC8</option>
+                      <option value="DC9">DC9</option>
+                      <option value="DHC-7">DHC-7</option>
+                      <option value="DHC-8">DHC-8</option>
+                      <option value="DORN328J">DORN328J</option>
+                                            
+                      <option value="E190">E190</option>
+                      <option value="EMB120">EMB120</option>
+                      <option value="EMB145">EMB145</option>
+                      <option value="EMB170">EMB170</option>
+                      <option value="EMB190">EMB190</option>
+                      <option value="ENG">ENG</option>
+                      <option value="ERJ-145">ERJ-145</option>
+                      <option value="ERJ-170">ERJ-170</option>
+                      <option value="ERJ-190">ERJ-190</option>
+                      <option value="F100">F100</option>
+                      <option value="F28">F28</option>
+                      <option value="F50">F50</option>
+                      <option value="G200">G200</option>
+                      <option value="G280">G280</option>
+                                                                 
+                      <option value="G450">G450</option>
+                      <option value="G550">G550</option>
+                      <option value="GLOBAL">GLOBAL</option>
+                      <option value="GROUND EQ">GROUND EQ</option>
+                      <option value="GULFSTREAM">GULFSTREAM</option>
+                      <option value="HAWKER800">HAWKER800</option>
+                      <option value="HS125">HS125</option>
+                      <option value="JT9">JT9</option>
+                      <option value="L1011">L1011</option>
+                      <option value="LEARJET">LEARJET</option>
+                      <option value="MD10">MD10</option>
+                      <option value="MD11">MD11</option>
+                      <option value="MD80">MD80</option>
+                      <option value="MILIT VAR">MILIT VAR</option>
+                                                                                       
+                      <option value="P&W">P&W</option>
+                      <option value="PW100">PW100</option>
+                      <option value="PW2000">PW2000</option>
+                      <option value="PW2037">PW2037</option>
+                      <option value="PW4000">PW4000</option>
+                      <option value="PW4056-1">PW4056-1</option>
+                      <option value="PW4056-3">PW4056-3</option>
+                      <option value="PW4060-1">PW4060-1</option>
+                      <option value="PW4158">PW4158</option>
+                      <option value="RB211">RB211</option>
+                      <option value="RJ200">RJ200</option>
+                      <option value="SHORTS 360">SHORTS 360</option>
+                      <option value="TOOL">TOOL</option>
+                      <option value="TRENT">TRENT</option>
+                      <option value="V2500">V2500</option>
+                      <option value="VARIOUS">VARIOUS</option>
+                    </select>
+
+
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width:40%;"><label>UOM: </label></td>
+                  <td>
+                    <select id="part_cond" name="uom" style="max-width:100%">
+                      <option value="">Select</option>
+                      <option value="EA-Each">EA-Each</option>
+                      <option value="FT-Foot">FT-Foot</option>
+                      <option value="GL-Gallon">GL-Gallon</option>
+                      <option value="LB-Pound">LB-Pound</option>
+                      <option value="QT-Quart">QT-Quart</option>
+                      <option value="SFT-Square">SFT-Square Foot</option>
+                      <option value="Unknown">Unknown</option>
+                    </select>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td> </td>
+                  <td>
+                    <input type="reset" Value="Clear" />
+                    <input type="submit" Value="Done" />
+                  </td>
+                </tr>
+
+              </table>
+          </form>
+          
+              {% if messages %}
+    <ul class="messages">
+      {% for message in messages%}
+      <li{%if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %} 
+        </div>   
+             
+      </div>
+    </div>
+    <h3 style="text-align:center"><a href="/spiinv_show_all">Show All Previously Manually Entered Data</a></h3>
+ 
+
+
+
+
+  </body>
+</html>

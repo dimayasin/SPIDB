@@ -1,0 +1,104 @@
+h1{
+  text-align: center;
+  color:orange;
+}
+.mynav{
+  background-color:orange;
+}
+.topNav{
+  position: abolute;
+  left: 10px;
+  width: 100%;
+  border-bottom: 1cm solid orange;
+}
+.leftNav{
+  position: absolute;
+  left: 10px;
+
+
+
+}
+
+li.myactive{
+  background-color: orange;
+  
+}
+
+.spiHeader{
+  display: block;
+  text-align: center;
+  letter-spacing: 3px;
+  margin-left: 300px;
+}
+
+table.little{
+width: 100%;
+padding:2px;
+border: 1px solid black;
+}
+
+table.data_entry{
+padding:2px;
+border: 0px;
+}
+
+
+.field_set{
+border-color:rgba(255, 166, 0, 0.932);
+border-width: 1pt;
+}
+
+
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.custom-file-input::before {
+  content: 'Select some files';
+  display: inline-block;
+  background: linear-gradient(top, #f9f9f9, #e3e3e3);
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 10pt;
+}
+.custom-file-input:hover::before {
+  border-color: black;
+}
+.custom-file-input:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+.formbox
+{
+  width: 50%;
+  border: 1px solid black;
+  padding: 20px;
+  margin:auto;
+  /* 10px 50px 50px 200px; */
+  
+}
+.signin{
+  width: 50%;
+  border: 1px solid black;
+  padding: 30px;
+  margin:auto;
+  /* margin-top:100px;
+  margin-left:300px; */
+  /* auto; */
+  
+  
+}
+
+
+.Download {
+  float:right;
+  margin-left: 30px;
+  color: rgb(39, 31, 143);
+  text-align: right;
+  
+}
