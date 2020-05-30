@@ -1,8 +1,8 @@
 from __future__ import unicode_literals
 from django.db import models
 from django.db import connection
-# from django.forms
 import re #, bcrypt
+# from bycrypt import checkpw
 import datetime 
 
 PN_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+$')
@@ -168,3 +168,33 @@ class ILSQH(models.Model):
     Quote_Date=models.DateField(default= datetime.date.today)
     
     object = ILSQH_Manager()
+
+""" 
+    class UsersManager(models.Manager):
+
+        def validateLoginData(self, postData):
+            errors = []
+            if not postData['username']:
+                errors.append("username is needed for login.")
+            if not postData['password']:
+                errors.append("Password is needed for login.")
+            if Users.object.filter(username = postData['username']):
+                obj= Users.object.get(username = postData['username'])
+                temp=obj.password
+                if not bcrypt.checkpw(postData['password'].encode(),temp.encode()):
+                    errors.append("Invalid Password")
+            else:
+                errors.append( "There is no registered email address")
+
+            if len(postData['password']) < 8:
+                errors.append( "User password should be more than 8 characters")
+
+            return errors
+
+    class Users(models.Model):
+        firstName = models.CharField(max_length=255)
+        lastName = models.CharField(max_length=255)
+        username = models.CharField(max_length=255)
+        password = models.CharField(max_length=255)
+
+        object = UsersManager() """

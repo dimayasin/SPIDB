@@ -5,8 +5,12 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index),
+    # url(r'^/$', views.index),
     url(r'summ$', views.summ),
     url(r'inputData$', views.inputData),
+    url(r'log$', views.log),
+    url(r'login_view$', views.login_view),
+    url(r'logout_view$', views.logout_view),
     url(r'brows$', views.brows),
     url(r'pn$', views.pn),
     url(r'desc$', views.desc),
@@ -26,4 +30,5 @@ urlpatterns = [
     url(r'all_data$', views.all_data),
     url(r'edit$', views.edit),   
     url(r'spiinv_show_all$', views.spiinv_show_all),
+   
 ]

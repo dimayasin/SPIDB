@@ -18,8 +18,9 @@
             <div class="navbar-header">
               <a class="navbar-brand" href="#">{% load static %}<img src="{% static 'images//logo.png' %}" /></a>
             </div>
-            <ul class="nav nav-tabs">
+            <ul class="nav nav-tabs navbar-center">
               <li class="nav-item"><a href="/">Home</a></li>
+              {% if user.is_authenticated %}
               <li class="nav-item"><a href="/summ">Summary</a></li>
               <li class="nav-item"><a href="/inputData">Enter Data</a></li>
               
@@ -33,7 +34,13 @@
                   </div>
               </li>
               
-            </ul>
+            {% comment %} </ul>
+            <ul class="nav navbar-nav navbar-right"> {% endcomment %}
+                <li><a href="/logout_view">Logout</a></li>
+                {% else %}
+                    <li><a href="/log">Login</a></li>
+                {% endif %}
+        </ul>
           </div>
       </nav>          
     </div>

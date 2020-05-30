@@ -1,5 +1,7 @@
 from __future__ import unicode_literals
 from django.shortcuts import render, redirect, HttpResponse
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, logout, authenticate
 from django.http import FileResponse
 from django import forms
 from django.db import connection
@@ -11,6 +13,7 @@ from openpyxl import load_workbook, workbook
 from openpyxl.styles import Font, Fill
 # from django.forms.utils import ValidationError
 from .models import spiInv, AFHS, Airlines, avref, ILSQH, SatairList
+# from .models import Users
 from reportlab.pdfgen import canvas
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 from reportlab.lib.pagesizes import letter
@@ -20,6 +23,7 @@ import xlwt
 
 from datetime import date
 import datetime
+from django.contrib.auth.models import User
 
 
 # from lib import bcrypt
@@ -33,11 +37,32 @@ secret_key = 'TARDIS'
 cursor = connection.cursor()
 
 
-def index(request):
-    # request.session['id']=""
+def index(request):  
+    
+    return render(request,'index.html')
+def log(request):
+    form=AuthenticationForm()
+    return render(request, 'login.html', {'form':form})
+def login_view(request):
+    if request.method=='POST':
+        form=AuthenticationForm(data=request.POST)  
+        if form.is_valid():
+            # login the user
+            user=form.get_user()
+            login(request, user)
+            print("*************************")
+            print(user)
+            print("****************************")  
+            return redirect("/summ")#, context)    
+    else:
+        form=AuthenticationForm()
+        return redirect(request,'/log')
+
+def logout_view(request):
+    logout(request)
+    messages.info(request, "User Logged Out Successfully")
 
     return render(request, 'index.html')
-
 
 def summ(request):
 
